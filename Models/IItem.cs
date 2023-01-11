@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveToFile.Models
+namespace Oefening.Models
 {
     internal interface IItem
     {

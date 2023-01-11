@@ -1,8 +1,32 @@
-﻿SaveToFile.Models.Library library = new();
+﻿using System.Text.Json;
 
-// lees de bestaande items uit een bestand
+// de naam van het bestand
+const string fileName = "library.json";
 
-var creator = new SaveToFile.Views.Creator();
+// combineer de filename met de appdata folder en de naam van het programma
+var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OefeningJSON");
+var filePath = Path.Combine(path, fileName);
+
+Oefening.Models.Library? library = null;
+
+// kijk of het bestand bestaat
+if (File.Exists(filePath))
+{
+    // lees alle tekst uit het bestand
+    string content = File.ReadAllText(filePath);
+
+    // probeer de inhoud in de library te plaatsen
+    library = JsonSerializer.Deserialize<Oefening.Models.Library>(content);
+}
+
+// er was geen bestand, of het bestand kon niet gelezen worden met JSON
+if (library == null)
+{
+    // maak een lege library in dit geval
+    library = new();
+}
+
+var creator = new Oefening.Views.Creator();
 var menu = new SMUtils.Menu();
 
 menu.AddOption('1', "Voeg een boek toe", () =>
@@ -18,7 +42,7 @@ menu.AddOption('2', "Voeg een game toe", () =>
 });
 
 menu.AddOption('3', "Toon Items", () => {
-    SaveToFile.Views.Viewer.Show(library.Items);
+    Oefening.Views.Viewer.Show(library.Items);
     Console.Write("Typ ID voor meer: ");
     var result = Console.ReadLine();
     try
@@ -26,7 +50,7 @@ menu.AddOption('3', "Toon Items", () => {
         int i = int.Parse(result);
         if (i >= 0 && i < library.Items.Count)
         {
-            SaveToFile.Views.Viewer.Show(library.Items[i]);
+            Oefening.Views.Viewer.Show(library.Items[i]);
         }
     } catch { }
 });
@@ -44,7 +68,7 @@ menu.AddOption('5', "Toon library details", () =>
     int games = 0;
     foreach (var item in library.Items)
     {
-        if (item is SaveToFile.Models.Book) books++;
+        if (item is Oefening.Models.Book) books++;
         else games++;
     }
     Console.WriteLine("books: " + books);
@@ -53,4 +77,20 @@ menu.AddOption('5', "Toon library details", () =>
 
 menu.Start();
 
-// Sla de library op voordat het programma afsluit
+// maak directory als die nog niet bestaat
+Directory.CreateDirectory(path);
+
+// maak of overschrijf een bestand
+var writer = File.CreateText(filePath);
+
+// voeg een optie toe om het bestand leesbaar te houden
+var options = new JsonSerializerOptions
+{
+    WriteIndented = true
+};
+
+// schrijf content van library naar bestand
+writer.Write(JsonSerializer.Serialize(library, options));
+
+// sla het bestand op
+writer.Flush();
