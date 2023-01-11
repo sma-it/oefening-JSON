@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveToFile.Models
+namespace Oefening.Models
 {
-    internal class Game : IItem
+    internal class Game
     {
         public string Name { get; set; }
         public int ReleaseYear { get; set; }

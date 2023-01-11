@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveToFile.Models
+namespace Oefening.Models
 {
     internal class Library
     {
         public string Name { get; set; }
-        public List<IItem> Items { get; set; } = new List<IItem>();
+        public List<Game> Items { get; set; } = new List<Game>();
     }
 }

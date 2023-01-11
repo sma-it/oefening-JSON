@@ -1,24 +1,14 @@
-﻿using SaveToFile.Models;
+﻿using Oefening.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveToFile.Views
+namespace Oefening.Views
 {
     internal class Creator
     {
-
-        public Book CreateBook()
-        {
-            Console.Write("Name: ");
-            var name = Console.ReadLine();
-            Console.Write("Author: ");
-            var author = Console.ReadLine();
-
-            return new Book(name, author);
-        }
 
         public Game CreateGame()
         {

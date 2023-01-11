@@ -1,14 +1,14 @@
-﻿SaveToFile.Models.Library library = new();
+﻿Oefening.Models.Library library = new();
 
 // lees de bestaande items uit een bestand
 
-var creator = new SaveToFile.Views.Creator();
+var creator = new Oefening.Views.Creator();
 var menu = new SMUtils.Menu();
 
-menu.AddOption('1', "Voeg een boek toe", () =>
+menu.AddOption('1', "Toon library details", () =>
 {
-    var book = creator.CreateBook();
-    library.Items.Add(book);
+    Console.WriteLine("Naam: " + library.Name);
+    Console.WriteLine("Games: " + library.Items.Count);
 });
 
 menu.AddOption('2', "Voeg een game toe", () =>
@@ -18,7 +18,7 @@ menu.AddOption('2', "Voeg een game toe", () =>
 });
 
 menu.AddOption('3', "Toon Items", () => {
-    SaveToFile.Views.Viewer.Show(library.Items);
+    Oefening.Views.Viewer.Show(library.Items);
     Console.Write("Typ ID voor meer: ");
     var result = Console.ReadLine();
     try
@@ -26,7 +26,7 @@ menu.AddOption('3', "Toon Items", () => {
         int i = int.Parse(result);
         if (i >= 0 && i < library.Items.Count)
         {
-            SaveToFile.Views.Viewer.Show(library.Items[i]);
+            Oefening.Views.Viewer.Show(library.Items[i]);
         }
     } catch { }
 });
@@ -36,20 +36,7 @@ menu.AddOption('4', "Kies een library naam", () => {
     library.Name = Console.ReadLine();
 });
 
-menu.AddOption('5', "Toon library details", () =>
-{
-    Console.WriteLine("Naam: " + library.Name);
-    Console.WriteLine("Items: " + library.Items.Count);
-    int books = 0;
-    int games = 0;
-    foreach (var item in library.Items)
-    {
-        if (item is SaveToFile.Models.Book) books++;
-        else games++;
-    }
-    Console.WriteLine("books: " + books);
-    Console.WriteLine("games: " + games);
-});
+
 
 menu.Start();
 
