@@ -29,10 +29,10 @@ if (library == null)
 var creator = new Oefening.Views.Creator();
 var menu = new SMUtils.Menu();
 
-menu.AddOption('1', "Voeg een boek toe", () =>
+menu.AddOption('1', "Toon library details", () =>
 {
-    var book = creator.CreateBook();
-    library.Items.Add(book);
+    Console.WriteLine("Naam: " + library.Name);
+    Console.WriteLine("Items: " + library.Items.Count);
 });
 
 menu.AddOption('2', "Voeg een game toe", () =>
@@ -60,20 +60,7 @@ menu.AddOption('4', "Kies een library naam", () => {
     library.Name = Console.ReadLine();
 });
 
-menu.AddOption('5', "Toon library details", () =>
-{
-    Console.WriteLine("Naam: " + library.Name);
-    Console.WriteLine("Items: " + library.Items.Count);
-    int books = 0;
-    int games = 0;
-    foreach (var item in library.Items)
-    {
-        if (item is Oefening.Models.Book) books++;
-        else games++;
-    }
-    Console.WriteLine("books: " + books);
-    Console.WriteLine("games: " + games);
-});
+
 
 menu.Start();
 

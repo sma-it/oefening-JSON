@@ -10,16 +10,6 @@ namespace Oefening.Views
     internal class Creator
     {
 
-        public Book CreateBook()
-        {
-            Console.Write("Name: ");
-            var name = Console.ReadLine();
-            Console.Write("Author: ");
-            var author = Console.ReadLine();
-
-            return new Book(name, author);
-        }
-
         public Game CreateGame()
         {
             Console.Write("Name: ");

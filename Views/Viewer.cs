@@ -9,7 +9,7 @@ namespace Oefening.Views
 {
     internal class Viewer
     {
-        public static void Show(List<IItem> items)
+        public static void Show(List<Game> items)
         {
             for(int i = 0; i < items.Count; i++)
             {
@@ -17,7 +17,7 @@ namespace Oefening.Views
             }
         }
 
-        public static void Show(IItem item)
+        public static void Show(Game item)
         {
             item.DisplayContents();
         }

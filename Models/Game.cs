@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Oefening.Models
 {
-    internal class Game : IItem
+    internal class Game
     {
         public string Name { get; set; }
         public int ReleaseYear { get; set; }
